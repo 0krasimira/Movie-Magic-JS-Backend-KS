@@ -3,8 +3,9 @@ const movieManager = require("../managers/movieManager")
 
     
 router.get("/", (req, res) => {
-    const movies = movieManager.getAll()
-    res.render("home", {movies})
+    const {title, genre, year} = req.query
+    const movies = movieManager.getAll(title, genre, year)
+    res.render("home", {movies, title, genre, year})
 })
 
 router.get('/about', (req, res) => {

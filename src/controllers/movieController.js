@@ -24,7 +24,9 @@ movieRouter.get('/movies/:movieId/details', (req, res) => {
 })
 
 movieRouter.get('/search', (req, res) => {
-    res.render('search')
+    const {title, genre, year} = req.query
+    const movies = movieManager.getAll(title, genre, year)
+    res.render('search', {movies, title, genre, year})
 })
 
 module.exports = movieRouter

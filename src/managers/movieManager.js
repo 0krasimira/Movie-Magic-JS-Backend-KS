@@ -35,9 +35,25 @@ const movies = [
     },
 ]
 
-exports.getAll = () => 
+exports.getAll = (title, genre, year) => 
 { let result = movies.slice()
-return result}
+
+
+    if(title){
+        result = result.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()))
+    }
+
+    if(genre){
+        result = result.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()))
+    }
+
+    if(year){
+        result = result.filter(movie => cube.year == Number(year))
+    }
+
+    return result
+return result
+}
 
 
 
