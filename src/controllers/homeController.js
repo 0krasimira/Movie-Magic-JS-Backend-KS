@@ -1,9 +1,10 @@
 const router = require("express").Router()
-
+const movieManager = require("../managers/movieManager")
 
     
 router.get("/", (req, res) => {
-    res.render("home")
+    const movies = movieManager.getAll()
+    res.render("home", {movies})
 })
 
 router.get('/about', (req, res) => {
