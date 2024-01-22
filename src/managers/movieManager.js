@@ -36,7 +36,8 @@ const movies = [
 ]
 
 exports.getAll = (title, genre, year) => 
-{ let result = movies.slice()
+{ 
+    let result = movies.slice()
 
 
     if(title){
@@ -48,11 +49,11 @@ exports.getAll = (title, genre, year) =>
     }
 
     if(year){
-        result = result.filter(movie => cube.year == Number(year))
+        result = result.filter(movie => movie.year == Number(year))
     }
 
     return result
-return result
+
 }
 
 
