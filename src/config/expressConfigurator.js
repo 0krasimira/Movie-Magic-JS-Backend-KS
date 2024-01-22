@@ -1,15 +1,11 @@
-expressConfigurator = () => {
-    const express = require("express")
-    const app = express()
-    const PORT = 5000
-    
-    app.get("/", (req, res) => {
-        res.send("start of magic movie project")
-    })
-    
-    app.listen(PORT, () => {
-        console.log(`Server is listening on port ${PORT}...`)
-    })
+
+const urlencoded = require("body-parser")
+const express = require("express")
+const path = require("path")
+
+function expressConfigurator(app){
+    app.use(express.static(path.resolve(__dirname, "../public")))
+    app.use(express.urlencoded({extended: false}))
 }    
 
 module.exports = expressConfigurator
