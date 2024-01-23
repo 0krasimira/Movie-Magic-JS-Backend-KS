@@ -10,7 +10,7 @@ movieRouter.get("/create", (req, res) => {
 movieRouter.post("/movies/create", (req, res) => {
     
     console.log(req.body)
-    const {id, title, genre, description, imageUrl, director, year, rating} = req.body
+    const {id, title, genre, description, poster, director, year, rating} = req.body
     
     const newMovie = movieManager.createMovies(req.body)
 
