@@ -3,10 +3,10 @@ const movieManager = require("../managers/movieManager")
 const movieRouter = require("./movieController")
 
     
-router.get("/", (req, res) => {
-    const {title, genre, year} = req.query
-    const movies = movieManager.getAll(title, genre, year)
-    res.render("home", {movies, title, genre, year})
+router.get("/", async (req, res) => {
+
+    const movies = await movieManager.getAll().lean()
+    res.render("home", {movies})
 })
 
 router.get('/about', (req, res) => {

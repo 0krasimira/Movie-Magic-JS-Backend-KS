@@ -33,11 +33,16 @@ const movieSchema = new mongoose.Schema({
     poster: {
         type: String, 
         required: true,
-        match: /^https?/,
+        match: /^https?:\/\//,
     },
+    
 })
 
 
+
+
 const Movie = mongoose.model("Movie", movieSchema)
+// const movieId = new Movie({}).id;
+// console.log(movieId);
 
 module.exports = Movie
