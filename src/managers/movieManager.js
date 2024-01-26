@@ -1,4 +1,6 @@
 const uniqid = require("uniqid")
+const Movie = require("../models/Movie")
+
 
 const movies = [
     {
@@ -58,17 +60,11 @@ exports.getAll = (title, genre, year) =>
 
 
 
-exports.createMovies = (movieData) => {
-    const newMovie = {
-         id: uniqid(),
-         ...movieData
-     }
- 
-     movies.push(newMovie);
- 
- 
- 
-     return newMovie
+exports.createMovies = async (movieData) => {
+
+    const result = await Movie.create(movieData)
+    return result
+    
  }
  
  

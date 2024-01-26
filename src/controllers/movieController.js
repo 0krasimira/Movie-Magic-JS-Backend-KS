@@ -7,14 +7,16 @@ movieRouter.get("/create", (req, res) => {
     res.render("create")
 })
 
-movieRouter.post("/movies/create", (req, res) => {
+movieRouter.post("/movies/create", async (req, res) => {
     
-    console.log(req.body)
-    const {id, title, genre, description, poster, director, year, rating} = req.body
+    try {
+        await movieManager.createMovies(req.body)
+        res.redirect('/')
+    } catch (error) {
+        console.log(error.message)
+        res.redirect("/create")
+    }
     
-    const newMovie = movieManager.createMovies(req.body)
-
-    res.redirect('/')
 })
 
 movieRouter.get('/movies/:movieId/details', (req, res) => {
