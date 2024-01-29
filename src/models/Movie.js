@@ -42,7 +42,6 @@ const movieSchema = new mongoose.Schema({
 
 
 const Movie = mongoose.model("Movie", movieSchema)
-// const movieId = new Movie({}).id;
-// console.log(movieId);
+
 
 module.exports = Movie
