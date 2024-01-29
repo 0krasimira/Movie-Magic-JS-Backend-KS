@@ -31,4 +31,8 @@ movieRouter.get('/search', (req, res) => {
     res.render('search', {movies, title, genre, year})
 })
 
+movieRouter.get('/movies/:movieId/attach', (req, res) => {
+    res.render('movie/attach')
+})
+
 module.exports = movieRouter
