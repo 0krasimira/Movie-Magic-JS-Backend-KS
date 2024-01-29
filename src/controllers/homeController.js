@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const movieManager = require("../managers/movieManager")
+const castRouter = require("./castController")
 const movieRouter = require("./movieController")
 
     
@@ -18,6 +19,7 @@ router.get('/404', (req, res) => {
 })
 
 router.use(movieRouter)
+router.use("/cast", castRouter)
 
 router.get("*", (req, res) => {
     res.status(404).render("404")
