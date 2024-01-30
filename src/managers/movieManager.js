@@ -39,23 +39,26 @@ const Movie = require("../models/Movie")
 exports.getAll = () => Movie.find()
 
 //TODO: Filter result in  MONGODB
-exports.search = async (title, genre, year) => {
+exports.search = (title, genre, year) => {
 
-    let result = await Movie.find().lean()
+    let query = {}
 
     if(title){
-        result = result.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()))
+        // result = result.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()))
+        query.title = new RegExp(title, 'i')
     }
 
     if(genre){
-        result = result.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()))
+        // result = result.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()))
+        query.genre = genre.toLowerCase()
     }
 
     if(year){
-        result = result.filter(movie => movie.year == Number(year))
+        // query = query.filter(movie => movie.year == Number(year))
+        query.year = year
     }
 
-    return result
+    return Movie.find(query)
 
 }
 
