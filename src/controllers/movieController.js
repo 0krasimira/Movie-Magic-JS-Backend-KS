@@ -39,11 +39,7 @@ movieRouter.get('/movies/:movieId/attach', async (req, res) => {
 
 movieRouter.post('/movies/:movieId/attach', async (req, res) => {
     const castId = req.body.cast
-    const movie = await movieManager.getOne(req.params.movieId)
-
-    movie.casts.push(castId)
-
-    await movie.save()
+    await movieManager.attach(req.params.movieId, castId)
     res.redirect(`/movies/${req.params.movieId}/attach`) // /movies/:movieId/attach
 })
 

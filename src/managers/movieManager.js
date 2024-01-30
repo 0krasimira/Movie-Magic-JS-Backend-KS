@@ -62,9 +62,23 @@ exports.search = async (title, genre, year) => {
 
 
 exports.createMovies = (movieData) => Movie.create(movieData)
-
  
 exports.getOne = (movieId) => Movie.findById(movieId)
+
+exports.attach = (movieId, castId) => {
+    // const movie = await this.getOne(movieId)
+    
+    // //TODO - CHECK IF castId EXISTS
+    // // TODO - CHECK IF castId is already added
+    // movie.casts.push(castId)
+    // return movie.save()
+
+ 
+    return Movie.findByIdAndUpdate(movieId, {$push: {casts : castId}})
+    
+
+
+}
 
 
 
