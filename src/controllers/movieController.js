@@ -22,6 +22,7 @@ movieRouter.post("/movies/create", async (req, res) => {
 movieRouter.get('/movies/:movieId/details', async (req, res) => {
     const movieId = req.params.movieId
     let movie = await movieManager.getOne(movieId).lean()
+    // const casts = await castManager.getByIds(movie.casts).lean() ===> only if populate is not used - populate populates the cast info into the movie with the ref: Cast in the Movie Schema
     res.render('details', {movie})
 })
 
