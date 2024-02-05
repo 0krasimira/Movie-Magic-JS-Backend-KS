@@ -2,13 +2,14 @@
 const movieRouter = require("express").Router()
 const movieManager = require("../managers/movieManager")
 const castManager = require("../managers/castManager")
+const {isAuth} = require("../middlewares/authMiddleware")
 const router = require("./homeController")
 
-movieRouter.get("/create", (req, res) => {
+movieRouter.get("/create", isAuth, (req, res) => {
     res.render("create")
 })
 
-movieRouter.post("/movies/create", async (req, res) => {
+movieRouter.post("/movies/create", isAuth, async (req, res) => {
     
     try {
         await movieManager.createMovies(req.body)
@@ -45,7 +46,7 @@ movieRouter.get('/search', async (req, res) => {
     
 })
 
-movieRouter.get('/movies/:movieId/attach', async (req, res) => {
+movieRouter.get('/movies/:movieId/attach', isAuth, async (req, res) => {
     try{
         const movie = await movieManager.getOne(req.params.movieId).lean()
         const casts = await castManager.getAll().lean()
@@ -57,7 +58,7 @@ movieRouter.get('/movies/:movieId/attach', async (req, res) => {
     
 })
 
-movieRouter.post('/movies/:movieId/attach', async (req, res) => {
+movieRouter.post('/movies/:movieId/attach', isAuth, async (req, res) => {
     try{
         const castId = req.body.cast
         await movieManager.attach(req.params.movieId, castId)
@@ -70,7 +71,10 @@ movieRouter.post('/movies/:movieId/attach', async (req, res) => {
 })
 
 
-movieRouter.get("/movies/:movieId/edit", async (req, res) => {
+movieRouter.get("/movies/:movieId/edit", isAuth, async (req, res) => {
+    if(!req.user){
+        return res.redirect('/auth/login')
+    }
     const movie = await movieManager.getOne(req.params.movieId).lean()
     res.render(`movie/edit`, {movie})
 })

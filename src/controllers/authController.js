@@ -16,10 +16,10 @@ authRouter.get("/login", async (req, res) => {
 })
 
 authRouter.post('/login', async (req, res) => {
-    const {email, password} = req.body
-    const token = await authManager.login(email, password)
-    res.cookie("auth", token)
-    res.redirect("/")
-})
+    const { email, password } = req.body;
+    const token = await authManager.login(email, password);
+    res.cookie('auth', token);
+    res.redirect('/');
+});
 
 module.exports = authRouter

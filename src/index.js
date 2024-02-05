@@ -10,6 +10,8 @@ const castRouter = require("./controllers/castController")
 const authRouter = require("./controllers/authController")
 
 
+
+
 expressConfigurator(app)
 handlebarsConfigurator(app)
 
