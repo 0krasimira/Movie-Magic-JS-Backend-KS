@@ -2,6 +2,7 @@
 const movieRouter = require("express").Router()
 const movieManager = require("../managers/movieManager")
 const castManager = require("../managers/castManager")
+const router = require("./homeController")
 
 movieRouter.get("/create", (req, res) => {
     res.render("create")
@@ -68,4 +69,9 @@ movieRouter.post('/movies/:movieId/attach', async (req, res) => {
     
 })
 
+
+movieRouter.get("/movies/:movieId/edit", (req, res) => {
+    
+    res.render(`movie/edit`)
+})
 module.exports = movieRouter
