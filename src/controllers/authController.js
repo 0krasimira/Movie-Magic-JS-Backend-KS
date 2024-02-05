@@ -8,7 +8,11 @@ authRouter.get("/register", (req, res) => {
 authRouter.post("/register", async (req, res) => {
     const userData = req.body
     await authManager.register(userData)
-    res.redirect("auth/login")
+    res.redirect("/auth/login")
+})
+
+authRouter.get("/login", async (req, res) => {
+    res.render("auth/login")
 })
 
 module.exports = authRouter

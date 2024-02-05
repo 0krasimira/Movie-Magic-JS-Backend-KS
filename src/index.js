@@ -19,7 +19,7 @@ const PORT = 5000
 app.use(router)
 app.use(movieRouter)
 app.use("/cast", castRouter)
-app.use('auth', authRouter)
+app.use('/auth', authRouter)
 
 mongoose.connect("mongodb://127.0.0.1:27017/magic-movies").then(() => {console.log("DB connected succesfully.");
 app.listen(PORT, () => 
