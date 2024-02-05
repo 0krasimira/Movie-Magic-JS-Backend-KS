@@ -6,13 +6,20 @@ authRouter.get("/register", (req, res) => {
 })
 
 authRouter.post("/register", async (req, res) => {
-    const userData = req.body
+    const userData= req.body
     await authManager.register(userData)
     res.redirect("/auth/login")
 })
 
 authRouter.get("/login", async (req, res) => {
     res.render("auth/login")
+})
+
+authRouter.post('/login', async (req, res) => {
+    const {email, password} = req.body
+    const token = await authManager.login(email, password)
+    console.log(token)
+    res.redirect("/")
 })
 
 module.exports = authRouter
