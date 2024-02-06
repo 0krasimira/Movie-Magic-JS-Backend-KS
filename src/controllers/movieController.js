@@ -30,7 +30,7 @@ movieRouter.get('/movies/:movieId/details', async (req, res) => {
         const movie = await movieManager.getOne(movieId).lean()
         // console.log(movie.owner)
         // console.log(req.user._id)
-        const isOwner = movie.owner.toString() === req.user?._id /*they are of different types = owner is Object, and _id is a string. so to compare them, we have to turn them both to be 1 type = either use ==, which will stringify the owner, or stringify it manually like this*/ /*req.user?_id - optional chaining - if there is no user, return undefined and do not throw error (because there's no id)*/
+        const isOwner = movie.owner && movie.owner == req.user?._id /*they are of different types = owner is Object, and _id is a string. so to compare them, we have to turn them both to be 1 type = either use ==, which will stringify the owner, or stringify it manually like this*/ /*req.user?_id - optional chaining - if there is no user, return undefined and do not throw error (because there's no id)*/
         // const casts = await castManager.getByIds(movie.casts).lean() ===> only if populate is not used - populate populates the cast info into the movie with the ref: Cast in the Movie Schema
         
         res.render('movie/details', {movie, isOwner})
@@ -85,4 +85,16 @@ movieRouter.get("/movies/:movieId/edit", isAuth, async (req, res) => {
     const movie = await movieManager.getOne(req.params.movieId).lean()
     res.render(`movie/edit`, {movie})
 })
+
+movieRouter.post('/movies/:movieId/edit', isAuth, async(req, res) => {
+    const editedMovie = req.body
+    await movieManager.edit(req.params.movieId, editedMovie)
+    res.redirect(`/movies/${req.params.movieId}/details`)
+})
+
+movieRouter.get("/movies/:movieId/delete", isAuth, async (req, res) => {
+    await movieManager.delete(req.params.movieId)
+    res.redirect('/')
+})
+
 module.exports = movieRouter

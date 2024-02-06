@@ -78,10 +78,11 @@ exports.attach = (movieId, castId) => {
 
  
     return Movie.findByIdAndUpdate(movieId, {$push: {casts : castId}})
-    
 
 
 }
 
+exports.delete = (movieId) => Movie.findByIdAndDelete(movieId)
 
+exports.edit = (movieId, movieData) => Movie.findByIdAndUpdate(movieId, movieData)
 
