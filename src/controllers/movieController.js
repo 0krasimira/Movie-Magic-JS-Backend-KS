@@ -11,8 +11,11 @@ movieRouter.get("/create", isAuth, (req, res) => {
 
 movieRouter.post("/movies/create", isAuth, async (req, res) => {
     
+    const newMovie = {...req.body,
+    owner: req.user._id}
+
     try {
-        await movieManager.createMovies(req.body)
+        await movieManager.createMovies(newMovie)
         res.redirect('/')
     } catch (error) {
         console.log(error.message)
@@ -26,7 +29,7 @@ movieRouter.get('/movies/:movieId/details', async (req, res) => {
         const movieId = req.params.movieId
     let movie = await movieManager.getOne(movieId).lean()
     // const casts = await castManager.getByIds(movie.casts).lean() ===> only if populate is not used - populate populates the cast info into the movie with the ref: Cast in the Movie Schema
-    res.render('details', {movie})
+    res.render('movie/details', {movie})
     } catch (error) {
         console.log(error.message)
         res.redirect("/")
