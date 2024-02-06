@@ -28,9 +28,12 @@ movieRouter.get('/movies/:movieId/details', async (req, res) => {
     try{
         const movieId = req.params.movieId
         const movie = await movieManager.getOne(movieId).lean()
-        const isOwner = movie.owner.toString() === req.user._id /*they are of different types = owner is Object, and _id is a string. so to compare them, we have to turn them both to be 1 type = either use ==, which will stringify the owner, or stringify it manually like this*/
+        // console.log(movie.owner)
+        // console.log(req.user._id)
+        const isOwner = movie.owner.toString() === req.user?._id /*they are of different types = owner is Object, and _id is a string. so to compare them, we have to turn them both to be 1 type = either use ==, which will stringify the owner, or stringify it manually like this*/ /*req.user?_id - optional chaining - if there is no user, return undefined and do not throw error (because there's no id)*/
         // const casts = await castManager.getByIds(movie.casts).lean() ===> only if populate is not used - populate populates the cast info into the movie with the ref: Cast in the Movie Schema
-    res.render('movie/details', {movie, isOwner})
+        
+        res.render('movie/details', {movie, isOwner})
     } catch (error) {
         console.log(error.message)
         res.redirect("/")

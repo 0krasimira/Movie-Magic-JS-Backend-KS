@@ -22,4 +22,9 @@ authRouter.post('/login', async (req, res) => {
     res.redirect('/');
 });
 
+authRouter.get('/logout', (req, res) => {
+    res.clearCookie('auth')
+    res.redirect('/')
+})
+
 module.exports = authRouter
