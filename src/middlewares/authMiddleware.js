@@ -13,7 +13,7 @@ exports.auth = async (req, res, next) => {
 try{
     const decodedToken = await jwt.verify(token, SECRET)
     req.user = decodedToken  // !!!!!!!!!!!!!!!!!!!!!! attach decoded token object to the user property of the req object
-    res.locals.isAuthenticated = true
+    res.locals.isAuthenticated = true // works only for the life of the request, app.locals  - lives globally
     next()
 }catch{
     res.clearCookie("auth");

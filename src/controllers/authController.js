@@ -6,9 +6,14 @@ authRouter.get("/register", (req, res) => {
 })
 
 authRouter.post("/register", async (req, res) => {
-    const userData= req.body
-    await authManager.register(userData)
-    res.redirect("/auth/login")
+    const userData = req.body
+    try {
+        await authManager.register(userData)
+        res.redirect("/auth/login")
+    } catch (error) {
+        res.render('auth/register', {error: error.message})
+    }
+    
 })
 
 authRouter.get("/login", async (req, res) => {
