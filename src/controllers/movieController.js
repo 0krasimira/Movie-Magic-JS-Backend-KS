@@ -4,6 +4,7 @@ const movieManager = require("../managers/movieManager")
 const castManager = require("../managers/castManager")
 const {isAuth} = require("../middlewares/authMiddleware")
 const router = require("./homeController")
+const { getErrorMessage } = require("../utils/errorUtils")
 
 movieRouter.get("/create", isAuth, (req, res) => {
     res.render("create")
@@ -18,8 +19,8 @@ movieRouter.post("/movies/create", isAuth, async (req, res) => {
         await movieManager.createMovies(newMovie)
         res.redirect('/')
     } catch (error) {
-        console.log(error.message)
-        res.redirect("/create")
+        const message = getErrorMessage(error)
+        res.status(400).render("create", {error: message}, ...newMovie)
     }
     
 })

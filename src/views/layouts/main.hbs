@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Catalog Page</title>
-    <!-- Do not forget to change the path to the css file -->
     <link href="/css/style.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
 
     <div id="box">
-
+        {{#if error}}
+        <div class="error-container">
+            <p>{{error}}</p>
+        </div>
+        {{/if}}
         <nav>
             <img src="/img/logo.webp" alt="logo">
 
@@ -30,12 +33,12 @@
                 <li><a href="/auth/login">Login</a></li>
                 <li><a href="/auth/register">Register</a></li>
                 {{/if}}
-                
+
             </ul>
 
         </nav>
-{{{body}}}
- <footer>
+        {{{body}}}
+        <footer>
             © JS Back-End Workshop
         </footer>
     </div>
