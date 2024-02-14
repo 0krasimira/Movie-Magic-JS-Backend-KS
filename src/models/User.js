@@ -29,11 +29,24 @@ userSchema.pre('save', async function() {
     
 })
 
-userSchema.virtual("rePassword").set(function(value){
-    if(value !== this.password){
-        throw new MongooseError("Passwords do not match!")   
-    } 
-})
+
+userSchema.virtual('repeatPassword')
+    .get(function() {
+      return this._repeatPassword;
+    })
+    .set(function(value) {
+        this._repeatPassword = value;
+    });
+
+userSchema.pre('validate', function(next) {
+    if (this.password !== this._repeatPassword) {
+        this.invalidate('passwordConfirmation', 'The passwords should be matching');
+    }
+    next();
+});
+
+
+
 
 const User = model("User", userSchema)
 
